@@ -34,14 +34,14 @@ public class ImageLoaderUtils {
 
     public String buildIdentificationScanCardImageUrl(String customerIdentifier,
             String identificationNumber, String scanIdentifier) {
-        return BaseUrl.getDefaultBaseUrl() +
+        return BaseUrl.getConfiguredBaseUrl(context) +
                 EndPoints.API_CUSTOMER_PATH + "/customers/"
                 + customerIdentifier + "/identifications/"
                 + identificationNumber + "/scans/" + scanIdentifier + "/image";
     }
 
     public String buildCustomerPortraitImageUrl(String customerIdentifier) {
-        return BaseUrl.getDefaultBaseUrl() +
+        return BaseUrl.getConfiguredBaseUrl(context) +
                 EndPoints.API_CUSTOMER_PATH + "/customers/"
                 + customerIdentifier + "/portrait";
     }

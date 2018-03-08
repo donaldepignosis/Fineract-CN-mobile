@@ -37,7 +37,7 @@ public class BaseApiManager {
 
     public BaseApiManager(Context context) {
         createService(context);
-        createAnonymousService();
+        createAnonymousService(context);
     }
 
     private static void init() {
@@ -60,7 +60,7 @@ public class BaseApiManager {
     private static void createService(Context context) {
 
         retrofit = new Retrofit.Builder()
-                .baseUrl(BaseUrl.getDefaultBaseUrl())
+                .baseUrl(BaseUrl.getConfiguredBaseUrl(context))
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
@@ -70,7 +70,7 @@ public class BaseApiManager {
         init();
     }
 
-    private static void createAnonymousService() {
+    private static void createAnonymousService(Context context) {
 
         HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
@@ -80,7 +80,7 @@ public class BaseApiManager {
                 .build();
 
         anonyMousRetrofit = new Retrofit.Builder()
-                .baseUrl(BaseUrl.getDefaultBaseUrl())
+                .baseUrl(BaseUrl.getConfiguredBaseUrl(context))
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(okHttpClient)
